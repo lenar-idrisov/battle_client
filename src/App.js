@@ -4,6 +4,7 @@ import Scheme from './components/Scheme';
 import Matrix from './components/Matrix';
 import Settings from './components/Settings';
 import Avatar2 from './img/avatar2.png';
+import Win from './img/winner.png';
 import Avatar1 from './img/avatar1.png';
 import SoundFailed from './sound/3.wav';
 import SoundWonded from './sound/2.wav';
@@ -220,12 +221,12 @@ export default class App extends React.Component {
 					wonded_ships.splice(wonded_num,1);
 					this.updateState({wonded_ships,killed_ships,help_points,last_point,score},player)
 					if(this.state.game_sound) this.soundKilled.play();
-					if(enemy == 'human') {
+					if(score == 10) {
+						setTimeout(_ => this.setState({game_winner: player}),3000)
+					}
+					else if (enemy == 'human') {
 						this.updateState({last_success:[]},player)
 						setTimeout(_ => this.computerPlaying(),2000);
-					}
-					if(score == 10) {
-						setTimeout(_ => this.setState({game_winner: player}),2000)
 					}
 				} else{
 					// добавляем вспомогательные точки вокруг ранненого корабля
@@ -411,6 +412,11 @@ export default class App extends React.Component {
 				{state.game_winner ? (
 					<div className="modal">
 						<div className="game_winner">
+							<div>
+								<a href="https://www.freepng.ru/png-y1ytxq/">
+									<img class="winner" src={Win} />
+								</a>
+							</div>
 							{state.game_winner == 'human' ?
 								('Вы победили! Ура! :)') :
 								('Вы проиграли :(')
@@ -421,6 +427,9 @@ export default class App extends React.Component {
 					<header className="header">
 						<div>Морской бой</div>
 						<div className="sound-bar" onClick={this.changeSound}>{'звук: '+(state.game_sound ? 'есть': 'нет')}</div>
+							<div class="score-bar">
+							{'счет: '+state.computer.score+' : '+state.human.score}
+							</div>
 						<input type="text" className="message-bar" value={state.game_message} readOnly />
 					</header>
 					<div className="content">

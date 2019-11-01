@@ -26,6 +26,11 @@ body {
 }
 .sound-bar{
     cursor: pointer;
+    word-spacing: 2px;
+}
+.score-bar{
+    display: flex;
+    word-spacing: 2px;
 }
 
 
@@ -261,6 +266,12 @@ body {
     z-index: 9;
 }
 .game_winner{
+    margin-top: -270px;
     color: white;
     font-size: 30px;
+    text-align: center;
+}
+.winner{
+    margin-top: 70px;
+    width: 600px;
 }
