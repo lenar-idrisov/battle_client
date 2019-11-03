@@ -13,6 +13,7 @@ import SoundKilled from './sound/1.wav';
 const message = {
 	computer: 'Мой ход, подождите...',
 	human: 'Жду вашего хода...',
+	end: 'Просмотрите оставшиеся корабли',
 }
 export default class App extends React.Component {
     constructor(props) {
@@ -40,9 +41,9 @@ export default class App extends React.Component {
 				trash: [], // все старые ходы компьютера
 				last_success: [], // последние успешные ходы(точки)
 			},
-			game_start: false,
-			game_active: '',
-			game_message: '',
+			game_start: false, // если имена заданы, то игра считается начатой
+			game_active: '', // кто ходит
+			game_message: '', // сообщение подсказка, кто ходит
 			game_winner: '',
 			game_sound: true,
         }
@@ -77,8 +78,18 @@ export default class App extends React.Component {
 		//setTimeout(_ =>console.log(player,this.state[player].ships),2000)
 	}
 	changeSound = () =>{
-		if(this.state.game_sound) this.setState({game_sound:false})
-		else this.setState({game_sound:true})
+		if(this.state.game_sound) {
+			this.setState({game_sound:false})
+			this.soundFailed.volume = 0;
+			this.soundWonded.volume = 0;
+			this.soundKilled.volume = 0;
+		}
+		else {
+			this.setState({game_sound:true})
+			this.soundFailed.volume = 1.0;
+			this.soundWonded.volume = 1.0;
+			this.soundKilled.volume = 1.0;
+		}
 	}
 
     // Получение случайного целого числа в заданном интервале(включая A и B)
@@ -89,10 +100,6 @@ export default class App extends React.Component {
 	}
 	// генерирование местоположения кораблей с учетом правил игры
 	generateShips = (player='human') =>{
-		/* for(let i=1;i<=4;i++){ ships_scheme.push(scheme[0])}
-		for(let i=1;i<=3;i++){ ships_scheme.push(scheme[1])}
-		for(let i=1;i<=2;i++){ ships_scheme.push(scheme[2])}
-		ships_scheme.push(scheme[3]); */
 		let ships = [];
 		let newShip;
 		Scheme.forEach(ship =>{
@@ -186,120 +193,16 @@ export default class App extends React.Component {
 			setTimeout(_ =>this.computerPlaying(),2000);
 		}
 	}
-	playing = (player,x,y) =>{
-		let enemy = (player == 'human' ? 'computer' : 'human');
-		// получаем корабли противника
-		let ships = this.state[enemy].ships;
-		// получаем свой собственные ошибочные и выйгрышные точки
-		let {fail_points,help_points,killed_ships,score,wonded_ships,last_success} =
-			this.state[player];
-		let last_point = {x,y}; let wonded;
-		let result = ships.some(ship =>{
-			// если удар попал по чужому кораблю
-			if(this.isPointInShips(x,y,ship)){
-				let wonded_num = this.getWondedShipNum(player,ship.num);
-				// если это первая палуба раненного корабля
-				if(wonded_num == 100){
-					wonded_ships.push({
-						num: ship.num,
-						ship_part: [{x,y}]
-					})
-					wonded = [{x,y}];
-				} else{
-					wonded_ships[wonded_num].ship_part.push({x,y});
-					wonded = wonded_ships[wonded_num].ship_part;
-				}
-				// если это последняя потопленная палуба чужого корабля
-				if(wonded.length == ship.size){
-					score++;
-					killed_ships.push(wonded);
-					wonded.forEach(cell =>{
-						let help = this.getHelpPoints(ship);
-						help_points.push(...help)
-						help_points = help_points.filter(e => e.x >= 0 && e.x <=9 && e.y >= 0 && e.y <=9);
-					})
-					wonded_ships.splice(wonded_num,1);
-					this.updateState({wonded_ships,killed_ships,help_points,last_point,score},player)
-					if(this.state.game_sound) this.soundKilled.play();
-					if(score == 10) {
-						setTimeout(_ => this.setState({game_winner: player}),3000)
-					}
-					else if (enemy == 'human') {
-						this.updateState({last_success:[]},player)
-						setTimeout(_ => this.computerPlaying(),2000);
-					}
-				} else{
-					// добавляем вспомогательные точки вокруг ранненого корабля
-					help_points.push({x:x-1,y:y-1},{x:x+1,y:y+1},{x:x-1,y:y+1},{x:x+1,y:y-1});
-					help_points = help_points.filter(e => e.x >= 0 && e.x <=9 && e.y >= 0 && e.y <=9);
-					this.updateState({wonded_ships,help_points,last_point},player)
-					if(this.state.game_sound) this.soundWonded.play();
-					if(enemy == 'human') {
-						last_success.push(last_point);
-						this.updateState({last_success},player)
-						setTimeout(_ => this.computerPlaying(),2000);
-					}
-				}
-				return true;
-			}
-			return false;
-		})
-		// если удар по противнику пришелся мимо
-		if(!result){
-			fail_points.push({x,y})
-			this.updateState({fail_points,last_point},player);
-			this.setState({game_message:message[enemy],game_active:enemy})
-			if(this.state.game_sound) this.soundFailed.play();
-			if(enemy == 'computer') {
-				setTimeout(_ => this.computerPlaying(),2000);
-			}
-		}
-	}
-	// получение вспомогательных точек вокруг потопленного корабля(чтоб исключить)
-	getHelpPoints = (ship) =>{
-		let {x,y,dir,size} = ship;
-		let ship_mass = []; let help_points = [];
-		// корабль цельный, получаем из него массив точек, чтобы вокруг них
-		// добавить вспомогательные точки
-		if(dir == 'right'){
-			for(let i=0; i<size; i++){
-				ship_mass.push({x,y});
-				x++;
-			}
-		} else{
-			for(let i=0; i<size; i++){
-				ship_mass.push({x,y});
-				y++;
-			}
-		}
-		ship_mass.forEach(({x,y}) =>{
-			help_points.push(
-				{x:x-1,y:y-1},
-				{x:x+1,y:y+1},
-				{x,y:y-1},
-				{x,y:y+1},
-				{x:x-1,y},
-				{x:x+1,y},
-				{x:x-1,y:y+1},
-				{x:x+1,y:y-1},
-			)
-		})
-		// удаляем дубликаты
-		let uniq = new Set(help_points.map(e => JSON.stringify(e)));
-		return Array.from(uniq).map(e => JSON.parse(e));
-	}
-
-
 	// ход человека
 	humanPlaying = (event) =>{
-		if(this.state.game_active == 'computer') {
+		if(this.state.game_active != 'human') {
 			this.setState(); return;
 		}
 		let x = Number(event.target.getAttribute('data-x'))
 		let y = Number(event.target.getAttribute('data-y'))
 		this.playing('human',x,y)
 	}
-
+	// проверка, что точка не выходит за доску и такой точки еще небыло
 	checkPoint = (x,y) =>{
 		let {trash,help_points} = this.state.computer;
 		trash.push(...help_points);
@@ -359,6 +262,87 @@ export default class App extends React.Component {
 		this.playing('computer',x,y)
 	}
 
+	playing = (player,x,y) =>{
+		let enemy = (player == 'human' ? 'computer' : 'human');
+		// получаем корабли противника
+		let ships = this.state[enemy].ships;
+		// получаем свой собственные ошибочные и выйгрышные точки
+		let {fail_points,help_points,killed_ships,score,wonded_ships,last_success} =
+			this.state[player];
+		let last_point = {x,y}; let wonded;
+		let result = ships.some(ship =>{
+			// если удар попал по чужому кораблю
+			if(this.isPointInShips(x,y,ship)){
+				let wonded_num = this.getWondedShipNum(player,ship.num);
+				// если это первая палуба раненного корабля
+				if(wonded_num == 100){
+					wonded_ships.push({
+						num: ship.num,
+						ship_part: [{x,y}]
+					})
+					wonded = [{x,y}];
+				} else{
+					wonded_ships[wonded_num].ship_part.push({x,y});
+					wonded = wonded_ships[wonded_num].ship_part;
+				}
+				// если это последняя потопленная палуба чужого корабля
+				if(wonded.length == ship.size){
+					score++;
+					killed_ships.push(wonded);
+					wonded.forEach(cell =>{
+						let help = this.getHelpPoints(ship);
+						help_points.push(...help)
+						help_points = help_points.filter(e => e.x >= 0 && e.x <=9 && e.y >= 0 && e.y <=9);
+					})
+					wonded_ships.splice(wonded_num,1);
+					this.updateState({wonded_ships,killed_ships,help_points,last_point,score},player)
+					this.soundKilled.play();
+					if(score == 10) {
+						this.setState({game_active: 'none',game_message: message.end})
+						setTimeout(_ => this.setState({game_winner: player}),10000)
+					}
+					else if (enemy == 'human') {
+						this.updateState({last_success:[]},player)
+						setTimeout(_ => this.computerPlaying(),2000);
+					}
+				} else{
+					// добавляем вспомогательные точки вокруг ранненого корабля
+					help_points.push({x:x-1,y:y-1},{x:x+1,y:y+1},{x:x-1,y:y+1},{x:x+1,y:y-1});
+					help_points = help_points.filter(e => e.x >= 0 && e.x <=9 && e.y >= 0 && e.y <=9);
+					this.updateState({wonded_ships,help_points,last_point},player)
+					this.soundWonded.play();
+					if(enemy == 'human') {
+						last_success.push(last_point);
+						this.updateState({last_success},player)
+						setTimeout(_ => this.computerPlaying(),2000);
+					}
+				}
+				return true;
+			}
+			return false;
+		})
+		// если удар по противнику пришелся мимо
+		if(!result){
+			fail_points.push({x,y})
+			this.updateState({fail_points,last_point},player);
+			this.setState({game_message:message[enemy],game_active:enemy})
+			this.soundFailed.play();
+			if(enemy == 'computer') {
+				setTimeout(_ => this.computerPlaying(),2000);
+			}
+		}
+	}
+	getWondedShipNum = (player,shipNum) =>{
+		let wondedNum = 100;
+		let wonded_ships = this.state[player].wonded_ships;
+		wonded_ships.some((ship,i) =>{
+			if(ship.num == shipNum){
+				wondedNum = i;
+				return true;
+			} else return false;
+		})
+		return wondedNum;
+	}
 	// проверка, что удар пришелся по кораблю
 	isPointInShips = (xTest,yTest,ship) =>{
 		let left,right,top,bottom;
@@ -381,16 +365,38 @@ export default class App extends React.Component {
 			return false;
 		}
 	}
-	getWondedShipNum = (player,shipNum) =>{
-		let wondedNum = 100;
-		let wonded_ships = this.state[player].wonded_ships;
-		wonded_ships.some((ship,i) =>{
-			if(ship.num == shipNum){
-				wondedNum = i;
-				return true;
-			} else return false;
+	// получение вспомогательных точек вокруг потопленного корабля(чтоб исключить)
+	getHelpPoints = (ship) =>{
+		let {x,y,dir,size} = ship;
+		let ship_mass = []; let help_points = [];
+		// корабль цельный, получаем из него массив точек, чтобы вокруг них
+		// добавить вспомогательные точки
+		if(dir == 'right'){
+			for(let i=0; i<size; i++){
+				ship_mass.push({x,y});
+				x++;
+			}
+		} else{
+			for(let i=0; i<size; i++){
+				ship_mass.push({x,y});
+				y++;
+			}
+		}
+		ship_mass.forEach(({x,y}) =>{
+			help_points.push(
+				{x:x-1,y:y-1},
+				{x:x+1,y:y+1},
+				{x,y:y-1},
+				{x,y:y+1},
+				{x:x-1,y},
+				{x:x+1,y},
+				{x:x-1,y:y+1},
+				{x:x+1,y:y-1},
+			)
 		})
-		return wondedNum;
+		// удаляем дубликаты
+		let uniq = new Set(help_points.map(e => JSON.stringify(e)));
+		return Array.from(uniq).map(e => JSON.parse(e));
 	}
 
     render() {
@@ -413,7 +419,7 @@ export default class App extends React.Component {
 					<div className="modal">
 						<div className="game_winner">
 							<div>
-								<a href="https://www.freepng.ru/png-y1ytxq/">
+								<a href="https://www.freepng.ru/png-y1ytxq/" target="_blank">
 									<img class="winner" src={Win} />
 								</a>
 							</div>
@@ -454,8 +460,7 @@ export default class App extends React.Component {
 									<div className="avatar-text">{computer.name + ' (поле противника)'} </div>
 								</div>
 								<Matrix
-									//ships={state.computer.ships}
-									ships={[]}
+									ships={state.game_active == 'none' ? computer.ships : []}
 									player={human}
 									click_handler={this.humanPlaying}
 								/>
