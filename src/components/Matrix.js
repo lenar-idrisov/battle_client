@@ -29,15 +29,21 @@ export default function Matrix(props) {
             <div className="ship" style={{left,top,height,width}}></div>
         )
     })
-    let wonded_ships = [];
-    props.player.wonded_ships.forEach((e, i) => {
-        wonded_ships.push(...e.ship_part)
-    })
-    let killed_ships = [];
+
+    let help = props.player.help_points;
+    let fail = props.player.fail_points;
+    let last = props.player.last_point;
+
+    let wonded = [];
+    let wonded_ships = props.player.wonded_ships;
+    for (let key in wonded_ships) {
+        wonded.push(...wonded_ships[key]);
+     }
+
+    let killed = [];
     props.player.killed_ships.forEach((e, i) => {
-        killed_ships.push(...e)
+        killed.push(...e)
     })
-    let last_point = props.player.last_point;
     return (
         <div className="matrix">
             <div className="axisX">
@@ -60,40 +66,40 @@ export default function Matrix(props) {
                     </div>
                 )}
             </div>
-            <div className="ship-container">
+            <div className="ships">
                 {ships.map((ship, i) => ship)}
             </div>
 
             <div className="help">
-                {props.player.help_points.map((cell, i) =>
+                {help.map((cell, i) =>
                     <div className="help_point point" style={{ left: cell.x * scale, top: cell.y * scale }}>
                     </div>
                 )}
             </div>
             <div className="fail">
-                {props.player.fail_points.map((cell, i) =>
+                {fail.map((cell, i) =>
                     <div className="fail_point point" style={{ left: cell.x * scale, top: cell.y * scale }}>
                         <div className="fail_icon"></div>
                     </div>
                 )}
             </div>
             <div className="wonded">
-                {wonded_ships.map((cell, i) =>
+                {wonded.map((cell, i) =>
                     <div className="wonded_point point" style={{ left: cell.x * scale, top: cell.y * scale }}>
                         <img src={Cross} alt="" className="wonded_icon" />
                     </div>
                 )}
             </div>
             <div className="killed">
-                {killed_ships.map((cell, i) =>
+                {killed.map((cell, i) =>
                     <div className="killed_point point" style={{ left: cell.x * scale, top: cell.y * scale }}>
                         <img src={Cross} alt="" className="killed_icon"/>
                     </div>
                 )}
             </div>
             <div className="last">
-                {JSON.stringify(last_point) != "{}" ?
-                    (<div className="last_point point" style={{ left: last_point.x * scale, top: last_point.y * scale }}>
+                {JSON.stringify(last) != "{}" ?
+                    (<div className="last_point point" style={{ left: last.x * scale, top: last.y * scale }}>
                     </div>) : null}
             </div>
         </div>
