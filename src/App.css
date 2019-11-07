@@ -178,35 +178,24 @@ body {
     flex-wrap: wrap;
     width: 220px;
 }
-.right-part .ship-container div{
+.ship-container .ship-backface{
     margin-bottom: 25px;
     margin-right: 10px;
-}
-.right-part .ship-draggable{
-    margin-top: -1px;
-    margin-left: -1px;
-    width: 30px;
-    height: 30px;
-    box-sizing: border-box;
-    border: 1px solid #00f;
-    background: rgba(0,0,255,.05);
-    cursor: pointer;
-}
-.right-part .ship-backface{
     border: 1px dotted #ccc;
     box-sizing: border-box;
+    position: relative;
 }
-.draggable-red{
-    position: absolute;
-    z-index: 100;
+
+.ship-draggable{
+    width: 30px;
     height: 30px;
-    border: 1px solid rgb(243, 46, 79);
-}
-.draggable-green{
+    border: 1px solid #00f;
+    background: rgba(0,0,255,.05);
+    box-sizing: border-box;
+    cursor: pointer;
     position: absolute;
+    top: -1px; left: -1px;
     z-index: 100;
-    height: 30px;
-    border: 1px solid rgb(86, 214, 35);
 }
 
 

@@ -6,7 +6,7 @@ import Settings from './components/Settings';
 
 import GameOver from './img/game_over.gif';
 import Avatar1 from './img/avatar1.png';
-import Avatar5 from './img/avatar5.png';
+import Avatar2 from './img/avatar8.png';
 
 import SoundFailed from './sound/3.wav';
 import SoundWonded from './sound/2.wav';
@@ -34,7 +34,7 @@ export default class App extends React.Component {
 			},
 			computer: {
 				name: 'Напарник',
-				avatar: Avatar5,
+				avatar: Avatar2,
 				ships: [], // личные корбали
 				fail_points: [], // промазанные точки
 				help_points: [], // вспомогательные точки вокруг потопленных чужых кораблей

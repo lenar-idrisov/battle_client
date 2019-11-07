@@ -1,27 +1,33 @@
 {
   "files": {
-    "main.css": "./static/css/main.9de5403d.chunk.css",
-    "main.js": "./static/js/main.3157bdee.chunk.js",
-    "main.js.map": "./static/js/main.3157bdee.chunk.js.map",
+    "main.css": "./static/css/main.7e67370e.chunk.css",
+    "main.js": "./static/js/main.54aea097.chunk.js",
+    "main.js.map": "./static/js/main.54aea097.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.d5e651b5.js",
     "runtime-main.js.map": "./static/js/runtime-main.d5e651b5.js.map",
-    "static/js/2.41b0562a.chunk.js": "./static/js/2.41b0562a.chunk.js",
-    "static/js/2.41b0562a.chunk.js.map": "./static/js/2.41b0562a.chunk.js.map",
+    "static/js/2.499d4128.chunk.js": "./static/js/2.499d4128.chunk.js",
+    "static/js/2.499d4128.chunk.js.map": "./static/js/2.499d4128.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.8ca0980ca6fa1c266b762ee107578377.js": "./precache-manifest.8ca0980ca6fa1c266b762ee107578377.js",
+    "precache-manifest.8e052df2f3d64644046b1c546dc6c81e.js": "./precache-manifest.8e052df2f3d64644046b1c546dc6c81e.js",
     "service-worker.js": "./service-worker.js",
-    "static/css/main.9de5403d.chunk.css.map": "./static/css/main.9de5403d.chunk.css.map",
+    "static/css/main.7e67370e.chunk.css.map": "./static/css/main.7e67370e.chunk.css.map",
     "static/media/1.wav": "./static/media/1.214a932b.wav",
     "static/media/2.wav": "./static/media/2.79ca65d3.wav",
-    "static/media/3.wav": "./static/media/3.5bb0a8d9.wav",
+    "static/media/3.wav": "./static/media/3.ea23ec05.wav",
     "static/media/avatar1.png": "./static/media/avatar1.688a6031.png",
-    "static/media/avatar2.png": "./static/media/avatar2.26a02cf8.png",
-    "static/media/winner.png": "./static/media/winner.76846a14.png"
+    "static/media/avatar2.png": "./static/media/avatar2.2abd794b.png",
+    "static/media/avatar3.png": "./static/media/avatar3.c596eaba.png",
+    "static/media/avatar4.png": "./static/media/avatar4.36da44c2.png",
+    "static/media/avatar5.png": "./static/media/avatar5.26a02cf8.png",
+    "static/media/avatar6.png": "./static/media/avatar6.139b6f0f.png",
+    "static/media/avatar7.png": "./static/media/avatar7.c3e59e0f.png",
+    "static/media/avatar8.png": "./static/media/avatar8.4f53004c.png",
+    "static/media/game_over.gif": "./static/media/game_over.820810c5.gif"
   },
   "entrypoints": [
     "static/js/runtime-main.d5e651b5.js",
-    "static/js/2.41b0562a.chunk.js",
-    "static/css/main.9de5403d.chunk.css",
-    "static/js/main.3157bdee.chunk.js"
+    "static/js/2.499d4128.chunk.js",
+    "static/css/main.7e67370e.chunk.css",
+    "static/js/main.54aea097.chunk.js"
   ]
 }
