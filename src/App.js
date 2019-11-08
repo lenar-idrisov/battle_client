@@ -5,7 +5,7 @@ import Matrix from './components/Matrix';
 import Settings from './components/Settings';
 
 import GameOver from './img/game_over.gif';
-import Avatar1 from './img/avatar1.png';
+import Avatar1 from './img/avatar4.png';
 import Avatar2 from './img/avatar8.png';
 
 import SoundFailed from './sound/3.wav';
@@ -58,7 +58,7 @@ export default class App extends React.Component {
 		this.soundFailed = new Audio(SoundFailed);
 		this.soundWonded = new Audio(SoundWonded);
 		this.soundKilled = new Audio(SoundKilled);
-		this.generateShips();
+		//this.generateShips();
 	}
 	// вспомогательная функция для обновления хранилища
 	updateState = (data, player='human') =>{
@@ -182,10 +182,6 @@ export default class App extends React.Component {
 			if (this.isPointInBorders(x,y,ship)) return true;
 			else if(dir == 'down' && this.isPointInBorders(x,y+size-1,ship)) return true;
 			else if(dir == 'right' && this.isPointInBorders(x+size-1,y,ship)) return true;
-			// проверка, что точка внутри игровой матрицы
-			// проверка нужна, только если выбран ручной режим расстановки кораблей
-			else if(x < 0 || y < 0) return true;
-			else if(x-size+1 > 9 || y+size-1 > 9) return true;
 			else return false;
 		})
 	}

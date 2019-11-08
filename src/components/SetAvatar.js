@@ -13,8 +13,8 @@ export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected_human: 1, // номер выбранной аватарки для человека
-            selected_computer: 1, // номер выбранной аватарки для компьютера
+            selected_human: 4, // номер выбранной аватарки для человека
+            selected_computer: 4, // номер выбранной аватарки для компьютера
         }
         this.img_human = [Avatar1, Avatar2, Avatar3, Avatar4];
         this.img_computer = [Avatar5, Avatar6, Avatar7, Avatar8];
