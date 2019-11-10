@@ -58,7 +58,7 @@ export default class App extends React.Component {
 		this.soundFailed = new Audio(SoundFailed);
 		this.soundWonded = new Audio(SoundWonded);
 		this.soundKilled = new Audio(SoundKilled);
-		//this.generateShips();
+		this.generateShips();
 	}
 	// вспомогательная функция для обновления хранилища
 	updateState = (data, player='human') =>{
@@ -118,6 +118,9 @@ export default class App extends React.Component {
 		} else{
 			this.updateState({ships:[]},'human')
 		}
+	}
+	setShipsManually = (ships)=>{
+		this.updateState({ships},'human');
 	}
 	// инициализация игры
 	initGame = () =>{
@@ -305,7 +308,7 @@ export default class App extends React.Component {
 					this.updateState({wonded_ships,killed_ships,help_points,last_point,score},player)
 					if(score == 10) {
 						this.setState({game_active: 'none',game_message: message.end})
-						setTimeout(_ => this.setState({game_winner: player}),10000)
+						setTimeout(_ => this.setState({game_winner: player}),5000)
 					}
 					else if (enemy == 'human') {
 						this.updateState({last_success:[]},player)

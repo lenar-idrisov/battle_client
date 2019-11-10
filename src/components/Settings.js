@@ -8,12 +8,9 @@ export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: 3, // текущее модальное окно
+            active: 2, // текущее модальное окно
             page_count: 3, // кол-во модальных окон всего
         }
-    }
-
-    componentDidMount(){
     }
 
     next = () => {
