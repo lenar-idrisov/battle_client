@@ -308,7 +308,7 @@ export default class App extends React.Component {
 					this.updateState({wonded_ships,killed_ships,help_points,last_point,score},player)
 					if(score == 10) {
 						this.setState({game_active: 'none',game_message: message.end})
-						setTimeout(_ => this.setState({game_winner: player}),5000)
+						setTimeout(_ => this.setState({game_winner: player}),3500)
 					}
 					else if (enemy == 'human') {
 						this.updateState({last_success:[]},player)
@@ -415,7 +415,9 @@ export default class App extends React.Component {
 				{state.game_winner ? (
 					<div className="modal">
 						<div className="game_winner">
-							<div><img src={GameOver} /></div>
+							<div><a href="https://media.giphy.com/media/10ht9DnPm4wubu/giphy.gif" target="_blank">
+								<img src={GameOver} />
+							</a></div>
 							{state.game_winner == 'human' ?
 								('Вы победили! Ура! :)') :
 								('Вы проиграли :(')

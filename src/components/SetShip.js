@@ -26,12 +26,10 @@ export default class Settings extends React.Component {
             mode: 'random',   // режим расстановки кораблей (случайно/вручную)
             current: {},      // текущий перемещаемый корабль
             dragged_list: [], // массив уже перенесенных на матрицу корабликов
-            temp_list: [],    // массив не для визуализации, а для передачи его в род. компонент
         }
         this.shiftX = null;
         this.shiftY = null;
-        this.oldShipDragged = {};
-        this.oldShipTemp = {};
+        this.oldShip = {};
         this.newShip = {};
     }
 
@@ -44,12 +42,12 @@ export default class Settings extends React.Component {
     changeMode = (event) =>{
         let mode = event.target.value;
         this.setState({mode});
-        if(mode == 'random') this.setState({current:{},dragged_list:[],temp_list:[]})
+        if(mode == 'random') this.setState({current:{},dragged_list:[]})
         this.props.regenerateShips(mode);
     }
     playStart = () =>{
-        let {mode,temp_list} = this.state;
-        if(mode == 'manually') this.props.setShipsManually(temp_list);
+        let {mode,dragged_list} = this.state;
+        if(mode == 'manually') this.props.setShipsManually(dragged_list);
         this.props.next();
     }
 
@@ -57,26 +55,24 @@ export default class Settings extends React.Component {
     transformShip = (event, ship) =>{
         // предотвращаем появление контексного меню
         event.preventDefault();
+        if(ship.size == 1) return;
         //console.log('transformShip')
-        let {dragged_list,temp_list} = this.state;
+        let {dragged_list} = this.state;
         let index = this.getIndexOfShip(ship.num);
-        this.oldShipDragged = dragged_list.splice(index,1)[0];
-        this.oldShipTemp = temp_list.splice(index,1)[0];
+        this.oldShip = dragged_list.splice(index,1)[0];
         let newShip = {
             ...ship,
             dir: ship.dir == 'right' ? 'down' : 'right',
         }
-        if(!this.props.isOverlapShips(newShip,temp_list)){
-            this.oldShipDragged = this.oldShipTemp = {};
+        if(!this.props.isOverlapShips(newShip,dragged_list) && newShip.y+newShip.size-1 <= 9){
+            this.oldShip = {};
             dragged_list.push(newShip);
-            temp_list.push(newShip);
-            console.log('newShip',newShip,dragged_list)
+            //console.log('newShip',newShip,dragged_list)
         } else{
-            dragged_list.push(this.oldShipDragged);
-            temp_list.push(this.oldShipTemp);
-            this.oldShipDragged = this.oldShipTemp = {};
+            dragged_list.push(this.oldShip);
+            this.oldShip = {};
         }
-        this.setState({dragged_list,temp_list})
+        this.setState({dragged_list})
     }
     // нажали левую кнопку для перемещения корабля
     moveStart = (event, ship) => {
@@ -84,12 +80,9 @@ export default class Settings extends React.Component {
         //console.log('moveStart')
         // если корабль уже был на игровом поле времненно удаляем его
         let shipNode = event.target;
-        let {dragged_list,temp_list} = this.state;
+        let {dragged_list} = this.state;
         let index = this.getIndexOfShip(ship.num);
-        if(index !== 5000){
-            this.oldShipDragged = dragged_list.splice(index,1)[0];
-            this.oldShipTemp = temp_list.splice(index,1)[0];
-        }
+        if(index !== 5000) this.oldShip = dragged_list.splice(index,1)[0];
         // смещение курсора относительно передвигаемого кораблика
         // это чтобы за какую точку взяли кораблик, за ту и переносили без прыжков
         this.shiftX = event.clientX-shipNode.getBoundingClientRect().left;
@@ -101,7 +94,7 @@ export default class Settings extends React.Component {
             color: colors.blue,
             dir: ship.dir || 'right',
         }
-        this.setState({current,dragged_list,temp_list})
+        this.setState({current,dragged_list})
         document.addEventListener('mousemove', this.move);
     }
     // отслеживание координат при перемещении
@@ -119,54 +112,45 @@ export default class Settings extends React.Component {
     // отжали левую кнопку мыши
     moveEnd = (event,ship) =>{
         document.removeEventListener('mousemove', this.move);
-        let {dragged_list,temp_list} = this.state;
+        let {dragged_list} = this.state;
         if(this.check(event,ship)){
-            this.oldShipDragged = this.oldShipTemp = {};
-            temp_list.push(this.newShip);
+            this.oldShip = {};
             dragged_list.push(this.newShip);
-            /* dragged_list.push({
-                ...this.newShip,
-                x: this.matrixX + this.newShip.x*30,
-                y: this.matrixY + this.newShip.y*30,
-            }); */
-        } else if(JSON.stringify(this.oldShipTemp) != "{}"){
-            dragged_list.push(this.oldShipDragged);
-            temp_list.push(this.oldShipTemp);
-            this.oldShipDragged = this.oldShipTemp = {};
+        } else if(JSON.stringify(this.oldShip) != "{}"){
+            dragged_list.push(this.oldShip);
+            this.oldShip = {};
         }
-        this.setState({current:{},dragged_list,temp_list})
+        this.setState({current:{},dragged_list})
     }
 
 
     // проверяет, где корабль летит и можно ли его приземлить(не нарушая правил игры)
     check = (event,ship) =>{
-        let {current,dragged_list,temp_list} = this.state;
+        let {current,dragged_list} = this.state;
         // прячем переносимый корабль на мгновенье, чтоб увидить какой dom-элемент под ним
         let shipNode = event.target;
         shipNode.hidden = true;
         // определяем точные координаты 1 палуб корабля, чтоб узнать какая ячейка под ней
         // и можно ли туда поместить корабль
-        let shipX = event.pageX-this.shiftX;
-        let shipY = event.pageY-this.shiftY;
+        let shipX = event.pageX-this.shiftX+15;
+        let shipY = event.pageY-this.shiftY+15;
         let elemBelow = document.elementFromPoint(shipX, shipY);
         shipNode.hidden = false;
         if(!elemBelow || elemBelow.className != 'cell') {
             //console.log('не на матрице или вышел за границы',elemBelow)
             return false;
         } else{
-            //console.log('прошел проверку',elemBelow)
             let newShip = {
                 ...ship,
                 x: Number(elemBelow.getAttribute('data-x')),
                 y: Number(elemBelow.getAttribute('data-y')),
                 color: colors.blue,
             }
-            //console.log('подо мной клетка ')
             //console.log('подо мной клетка ',elemBelow)
             this.newShip = newShip;
 			if(newShip.dir == 'right' && newShip.x+newShip.size-1 > 9) return false;
 			if(newShip.dir == 'down' && newShip.y+newShip.size-1 > 9) return false;
-            return !this.props.isOverlapShips(newShip,temp_list);
+            return !this.props.isOverlapShips(newShip,dragged_list);
         }
     }
     // поиск корабля по номеру, возвращает индекс корабля в массив this.temp_list

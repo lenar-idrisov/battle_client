@@ -61,7 +61,7 @@ body {
     text-align: center;
     background-color: #6725ad;
     color: white;
-    padding: 15px;
+    padding: 12px;
     margin-bottom: 20px;
     margin: 0;
     border-radius: 5px 5px 0 0;
@@ -141,10 +141,11 @@ body {
 /* задание расположения личных кораблей в начале игры */
 .set-ships-body{
     display: flex;
-    padding: 10px 0;
+    padding: 8px 0;
+    padding-bottom: 0;
 }
 .set-ships button{
-    margin: 5px auto 15px auto;
+    margin: 30px auto 15px auto;
 }
 .left-part{
     width: 470px;
@@ -154,7 +155,7 @@ body {
     border: 2px solid #00f;
 }
 .left-part .some-container{
-    margin-bottom: 60px;
+    margin-bottom: 55px;
 }
 .left-part .input-container{
     display: flex;
@@ -170,6 +171,7 @@ body {
 .left-part label{
     cursor: pointer;
 }
+
 .right-part{
     padding-right: 80px;
 }
@@ -178,9 +180,11 @@ body {
     line-height: 1.5;
     width: 300px;
     margin-top: 7px;
+    margin-bottom: 15px;
 }
-
-
+.right-part .ship-hint:nth-child(2){
+    margin-bottom: 0;
+}
 .right-part .ships-psevdo-draggable{
     display: flex;
     justify-content: space-between;
@@ -188,7 +192,7 @@ body {
     width: 220px;
 }
 .ship-psevdo{
-    margin-bottom: 25px;
+    margin-top: 25px;
     margin-right: 10px;
     box-sizing: border-box;
     border: 2px solid #00f;
@@ -197,7 +201,7 @@ body {
     height: 30px;
 }
 .ship-backface{
-    margin-bottom: 25px;
+    margin-top: 25px;
     margin-right: 10px;
     box-sizing: border-box;
     border: 1px dotted #ccc;
