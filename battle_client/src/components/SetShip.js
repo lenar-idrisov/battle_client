@@ -34,6 +34,7 @@ export default class Settings extends React.Component {
     }
 
     componentDidMount(){
+        this.props.generateShips();
         let draggedNode = document.querySelector('.ships-dragged');
         let matrixNode = document.querySelector('.matrix');
         matrixNode.append(draggedNode);
@@ -176,22 +177,22 @@ export default class Settings extends React.Component {
         return (
             <div className="set-ships">
                 <h1>Расстановка кораблей</h1>
-                <div className="set-ships-body">
+                <div className="body">
 
                     <div className="left-part">
                         <div className="some-container">
                             <div className="input-container">
-                                <label htmlFor="radio1">расставить случайно</label>
+                                <label htmlFor="one">расставить случайно</label>
                                 <input type="radio"
-                                    id="radio1"
+                                    id="one"
                                     value="random"
                                     checked={mode=='random'}
                                     onChange={this.changeMode} />
                             </div>
                             <div className="input-container">
-                                <label htmlFor="radio2">расставить самому</label>
+                                <label htmlFor="two">расставить самому</label>
                                 <input type="radio"
-                                    id="radio2"
+                                    id="two"
                                     value="manually"
                                     checked={mode=='manually'}
                                     onChange={this.changeMode} />
@@ -243,9 +244,9 @@ export default class Settings extends React.Component {
                     </div>
                     {mode == 'manually' ? (
                         <div className="right-part">
-                            <p className="ship-hint">Нажмите и тащите мышкой корабли
+                            <p className="hint">Нажмите и тащите мышкой корабли
                             в игровое поле до появления зеленой рамки.</p>
-                            <p className="ship-hint">Для поворота корабля — после перемещения
+                            <p className="hint">Для поворота корабля — после перемещения
                             нажмите правую кнопку мыши.</p>
                             {/* массив исходных кораблей до перетаскивания */}
                             <div class="ships-psevdo-draggable">

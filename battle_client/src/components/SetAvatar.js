@@ -39,7 +39,7 @@ export default class Settings extends React.Component {
         return (
             <div className="set-avatar">
                 <h1>Морской бой</h1>
-                <div className="set-avatar-body">
+                <div className="body">
                     <div className="my-avatar">
                         <label>Выберите аватарку для себя</label>
                         <div className="avatar-container">

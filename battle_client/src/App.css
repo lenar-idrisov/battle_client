@@ -89,27 +89,85 @@ body {
 }
 
 
-/* задание имен героев в начале игры */
-.set-names-body {
-    padding: 5px 90px;
+/* приглашение на игру */
+.welcome h1{
+    background-image: linear-gradient(to top right,
+      rgb(101, 115, 255), rgb(111, 114, 247), rgb(120, 114, 239),
+      rgb(130, 113, 231), rgb(139, 112, 223),
+      rgb(149, 111, 215), rgb(158, 111, 208),
+      rgb(168, 110, 200), rgb(177, 109, 192),
+      rgb(187, 108, 184), rgb(196, 108, 176),rgb(206, 107, 168));
 }
-.set-names label{
-    display: block;
+.welcome .body{
+    padding: 20px 50px;
+}
+.welcome .buttons{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 350px;
+}
+.welcome .button-yes{
+    padding: 18px 0;
+    width: 160px;
+    background-color: #19BB4F;
+}
+.welcome .button-no{
+    padding: 18px 0;
+    width: 160px;
+    background-color: #ED1C24;
+}
+.welcome .button-yes:hover{
+    background-color: rgb(87, 206, 127);
+}
+.welcome .button-no:hover{
+    background-color: rgb(235, 90, 94);
+}
+
+
+
+/* задание имен героев в начале игры */
+.set-names .body {
+    padding: 10px 50px;
+    text-align: left;
+}
+.mode-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
     margin: 20px 0;
 }
-.set-names input{
+.mode-container label{
+    cursor: pointer;
+}
+.mode-container input{
+    cursor: pointer;
+    transform:scale(1.3);
+}
+.name-container input{
+    margin-top: 25px;
     outline: none; border: none;
     border-bottom: 1px solid black;
     width: 100%;
     font-size: 18px;
     color: #33c;
+    display: block;
+}
+.name-container .error{
+    display: inline-block;
+    margin-top: 20px;
+    color: red;
+    text-align: left;
 }
 .set-names button{
     margin: 15px auto;
+    margin-bottom: 20px;
 }
 
 /* настройка аватарки в начале игры */
-.set-avatar-body{
+.set-avatar .body{
     padding: 15px 50px;
 }
 .set-avatar label{
@@ -138,8 +196,9 @@ body {
 }
 
 
+
 /* задание расположения личных кораблей в начале игры */
-.set-ships-body{
+.set-ships .body{
     display: flex;
     padding: 8px 0;
     padding-bottom: 0;
@@ -147,45 +206,47 @@ body {
 .set-ships button{
     margin: 30px auto 15px auto;
 }
-.left-part{
+
+.set-ships .left-part{
     width: 470px;
     padding-left: 10px;
 }
-.left-part .matrix .ship{
+.set-ships .right-part{
+    padding-right: 80px;
+}
+
+.set-ships .matrix .ship{
     border: 2px solid #00f;
 }
-.left-part .some-container{
+.set-ships .some-container{
     margin-bottom: 55px;
 }
-.left-part .input-container{
+.set-ships .input-container{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 300px;
     margin: 10px auto;
 }
-.left-part input{
+.set-ships input{
     transform:scale(1.3);
     cursor: pointer;
 }
-.left-part label{
+.set-ships label{
     cursor: pointer;
 }
-
-.right-part{
-    padding-right: 80px;
-}
-.right-part .ship-hint{
+.set-ships .hint{
     text-align: justify;
     line-height: 1.5;
     width: 300px;
     margin-top: 7px;
     margin-bottom: 15px;
 }
-.right-part .ship-hint:nth-child(2){
+.set-ships .hint:nth-child(2){
     margin-bottom: 0;
 }
-.right-part .ships-psevdo-draggable{
+
+.ships-psevdo-draggable{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -214,6 +275,47 @@ body {
     cursor: pointer;
     position: absolute;
     z-index: 100;
+}
+
+
+/* выбор напарника */
+.set-friend .body{
+    display: flex;
+    padding: 25px 35px;
+    padding-bottom: 0;
+}
+.set-friend button{
+    margin: 30px auto 25px auto;
+}
+.set-friend .left-part{
+    width: 300px;
+    margin-right: 50px;
+}
+.set-friend .right-part{
+    width: 380px;
+}
+
+.set-friend .input-container{
+    display: flex;
+    align-items: center;
+    margin: 0 auto 10px auto;
+    text-align: left;
+}
+.set-friend input{
+    margin-right: 20px;
+    transform:scale(1.3);
+    cursor: pointer;
+}
+.set-friend label{
+    cursor: pointer;
+}
+
+.set-friend .hint{
+    text-align: justify;
+    line-height: 1.5;
+    width: 380px;
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 
