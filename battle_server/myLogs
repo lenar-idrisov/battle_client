@@ -1,0 +1,180 @@
+Begin log:
+The current date: Sun Dec 01 2019 00:29:34 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "pragma": "no-cache",
+  "cache-control": "no-cache",
+  "upgrade-insecure-requests": "1",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 YaBrowser/19.9.3.358 (beta) Yowser/2.5 Safari/537.36",
+  "sec-fetch-mode": "navigate",
+  "sec-fetch-user": "?1",
+  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+  "sec-fetch-site": "none",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9"
+}
+Body of request: 
+{}
+The end of log.
+
+
+Begin log:
+The current date: Sun Dec 01 2019 00:29:35 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /favicon.ico
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "pragma": "no-cache",
+  "cache-control": "no-cache",
+  "sec-fetch-mode": "no-cors",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 YaBrowser/19.9.3.358 (beta) Yowser/2.5 Safari/537.36",
+  "accept": "image/webp,image/apng,image/*,*/*;q=0.8",
+  "sec-fetch-site": "same-origin",
+  "referer": "http://localhost:5000/",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9"
+}
+Body of request: 
+{}
+The end of log.
+
+
+Begin log:
+The current date: Wed Jan 08 2020 17:17:47 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "upgrade-insecure-requests": "1",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 YaBrowser/19.12.3.332 (beta) Yowser/2.5 Safari/537.36",
+  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+  "sec-fetch-site": "none",
+  "sec-fetch-mode": "navigate",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9"
+}
+Body of request: 
+{}
+The end of log.
+
+
+Begin log:
+The current date: Wed Jan 08 2020 17:17:48 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /favicon.ico
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "sec-fetch-site": "none",
+  "sec-fetch-mode": "no-cors",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 YaBrowser/19.12.3.332 (beta) Yowser/2.5 Safari/537.36",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9"
+}
+Body of request: 
+{}
+The end of log.
+
+
+Begin log:
+The current date: Wed Jan 08 2020 17:17:48 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /favicon.ico
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 YaBrowser/19.12.3.332 (beta) Yowser/2.5 Safari/537.36",
+  "accept": "image/webp,image/apng,image/*,*/*;q=0.8",
+  "sec-fetch-site": "same-origin",
+  "sec-fetch-mode": "no-cors",
+  "referer": "http://localhost:5000/",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9"
+}
+Body of request: 
+{}
+The end of log.
+
+
+Begin log:
+The current date: Wed Jan 08 2020 17:28:09 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "cache-control": "max-age=0",
+  "upgrade-insecure-requests": "1",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 YaBrowser/19.12.3.332 (beta) Yowser/2.5 Safari/537.36",
+  "sec-fetch-user": "?1",
+  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+  "sec-fetch-site": "none",
+  "sec-fetch-mode": "navigate",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9",
+  "if-none-match": "W/\"c-Lve95gjOVATpfV8EL5X4nxwjKHE\""
+}
+Body of request: 
+{}
+The end of log.
+
+
+Begin log:
+The current date: Wed Jan 08 2020 17:30:47 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "cache-control": "max-age=0",
+  "upgrade-insecure-requests": "1",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 YaBrowser/19.12.3.332 (beta) Yowser/2.5 Safari/537.36",
+  "sec-fetch-user": "?1",
+  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+  "sec-fetch-site": "none",
+  "sec-fetch-mode": "navigate",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9",
+  "if-none-match": "W/\"b-Ck1VqNd45QIvq3AZd8XYQLvEhtA\""
+}
+Body of request: 
+{}
+The end of log.
+
+
+Begin log:
+The current date: Wed Jan 08 2020 17:31:25 GMT+0500 (GMT+05:00)
+Metod: GET
+URL: /
+Request headers: 
+{
+  "host": "localhost:5000",
+  "connection": "keep-alive",
+  "cache-control": "max-age=0",
+  "upgrade-insecure-requests": "1",
+  "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 YaBrowser/19.12.3.332 (beta) Yowser/2.5 Safari/537.36",
+  "sec-fetch-user": "?1",
+  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+  "sec-fetch-site": "none",
+  "sec-fetch-mode": "navigate",
+  "accept-encoding": "gzip, deflate, br",
+  "accept-language": "ru,en;q=0.9",
+  "if-none-match": "W/\"c-Lve95gjOVATpfV8EL5X4nxwjKHE\""
+}
+Body of request: 
+{}
+The end of log.
+
+
