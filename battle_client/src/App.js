@@ -45,6 +45,7 @@ export default class App extends React.Component {
 				trash: [], // все старые ходы компьютера
 				last_success: [], // последние успешные ходы(точки)
 			},
+			game_mode: '', // режимы игры: онлайн в сети|оффлайн с компом
 			game_start: false, // если имена заданы, то игра считается начатой
 			game_active: '', // кто ходит
 			game_message: '', // сообщение подсказка, кто ходит
@@ -100,6 +101,9 @@ export default class App extends React.Component {
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
 	}
+	setMode = (mode) =>{
+		this.setState({game_mode:mode});
+	}
 	// добавление имен героев в начале игры
 	setName = (event) =>{
 		let player = event.target.getAttribute('player');
@@ -111,6 +115,9 @@ export default class App extends React.Component {
 		console.log(avatar,player)
 		this.updateState({avatar},player)
 	}
+	setShipsManually = (ships)=>{
+		this.updateState({ships},'human');
+	}
 	// сменили режим расстановки кораблей (случайно/вручную)
 	regenerateShips = (mode) =>{
 		if(mode == 'random'){
@@ -118,9 +125,6 @@ export default class App extends React.Component {
 		} else{
 			this.updateState({ships:[]},'human')
 		}
-	}
-	setShipsManually = (ships)=>{
-		this.updateState({ships},'human');
 	}
 	// инициализация игры
 	initGame = () =>{
@@ -428,9 +432,9 @@ export default class App extends React.Component {
 					<header className="header">
 						<div>Морской бой</div>
 						<div className="sound-bar" onClick={this.changeSound}>{'звук: '+(state.game_sound ? 'есть': 'нет')}</div>
-							<div class="score-bar">
+						<div className="score-bar">
 							{'счет: '+state.computer.score+' : '+state.human.score}
-							</div>
+						</div>
 						<input type="text" className="message-bar" value={state.game_message} readOnly />
 					</header>
 					<div className="content">

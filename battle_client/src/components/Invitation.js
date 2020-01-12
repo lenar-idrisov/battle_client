@@ -1,9 +1,8 @@
 import React from 'react';
 
-
-export default function Welcome(props) {
+export default function Invitaion(props) {
     return (
-        <div className="welcome">
+        <div className="invitation">
             <h1>Приглашение на игру</h1>
             <div className="body">
                 <label>Игрок <b>Зайцев</b> приглашает вас на игру</label>

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import Welcome from './Welcome'
+import Invitation from './Invitation'
 import SetMode from './SetMode'
 import SetAvatar from './SetAvatar'
 import SetShip from './SetShip'
@@ -10,7 +9,7 @@ export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: 0, // текущее модальное окно
+            active: 1, // текущее модальное окно
             page_count: 4, // кол-во модальных окон всего
         }
     }
@@ -27,12 +26,13 @@ export default class Settings extends React.Component {
         return (
             <div className="settings" >
                 {active == 0 ? (
-                    <Welcome
+                    <Invitation
                         next={this.next}
                         {...this.props} />) : null}
                 {active == 1 ? (
                     <SetMode
                         next={this.next}
+                        setMode={this.props.setMode}
                         setName={this.props.setName} />) : null}
                 {active == 2 ? (
                     <SetAvatar

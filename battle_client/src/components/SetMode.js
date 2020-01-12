@@ -4,8 +4,8 @@ export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            mode: 'friend',  // режим игры: с компом/ в сети с напарником
-            name: '',
+            mode: 'online', // режимы игры: онлайн в сети|оффлайн с компом
+            name: '', // для онлайн-режима нужно ввести имя, чтобы в сети узнали
             name_correct: false,
         }
     }
@@ -13,10 +13,11 @@ export default class Settings extends React.Component {
     changeMode = (event) =>{
         let mode = event.target.value;
         this.setState({mode})
+        this.props.setMode(mode);
     }
 
     render = ()=>{
-        let {mode,name,name_correct} = this.state;
+        let {mode, name_correct} = this.state;
 
         return (
             <div className="set-names">
@@ -26,19 +27,19 @@ export default class Settings extends React.Component {
                         <label htmlFor="one">играть с компьютером</label>
                         <input type="radio"
                             id="one"
-                            value="computer"
-                            checked={mode == 'computer'}
+                            value="offline"
+                            checked={mode == 'offline'}
                             onChange={this.changeMode} />
                     </div>
                     <div className="mode-container">
                         <label htmlFor="two">играть с напарником в сети</label>
                         <input type="radio"
                             id="two"
-                            value="friend"
-                            checked={mode == 'friend'}
+                            value="online"
+                            checked={mode == 'online'}
                             onChange={this.changeMode} />
                     </div>
-                   {mode == 'friend' ?
+                   {mode == 'online' ?
                         <div class="name-container">
                             <input type="text"
                                 player="human"
